@@ -257,7 +257,9 @@ const actions = {
     socketHub.on('newDeposit', (balance, amount, currency, appId) => {
       if (Settings.AppId === appId) {
         commit(types.SET_BALANCE, {Balance: balance, Currency: currency});
-        toastr.info(`New deposit of ${amount} ${currencies[currency].code} received`);
+        if (amount > 0) {
+          toastr.info(`New deposit of ${amount} ${currencies[currency].code} received`);
+        }
       }
     });
 
