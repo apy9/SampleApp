@@ -111,6 +111,7 @@ const mutations = {
     }
   },
   [types.SET_NEW_DICE_SEED] (state, data) {
+    state.Nonce = data.Nonce;
     state.ClientSeed = data.ClientSeed;
     state.ServerSeedHash = data.ServerSeedHash;
     state.PreviousSeed = data.PreviousSeed;
