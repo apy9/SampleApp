@@ -1,16 +1,16 @@
 <template>
   <div class="row">
     <div class="col-xs-12">
+      <ul class='nav nav-tabs' role="tablist">
+        <li v-for="Channel in Channels" role="presentation" v-bind:class="{ active: Channel === CurrentChannel }">
+          <a href='#' v-on:click.prevent='CurrentChannel = Channel'>{{ Channel.Language }} - {{ Channel.AppId }}</a>
+        </li>
+      </ul>
+      <div v-for="Message in Messages">
+        {{ Message.UserName }}: {{ Message.Message }} {{ formatDate(Message.Date) }} 
+      </div>
       <div v-if="ConnectionNeeded">Sign in to chat</div>
       <div v-if="!ConnectionNeeded">
-        <ul class='nav nav-tabs' role="tablist">
-          <li v-for="Channel in Channels" role="presentation" v-bind:class="{ active: Channel === CurrentChannel }">
-            <a href='#' v-on:click.prevent='CurrentChannel = Channel'>{{ Channel.Language }} - {{ Channel.AppId }}</a>
-          </li>
-        </ul>
-        <div v-for="Message in Messages">
-          {{ Message.UserName }}: {{ Message.Message }} {{ formatDate(Message.Date) }} 
-        </div>
         <textarea class="form-control" v-model="Message" placeholder="Your message"></textarea>
         <button type="button" class="btn btn-default" v-on:click.prevent='send'>Send</button>
       </div>

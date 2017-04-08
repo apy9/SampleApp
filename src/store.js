@@ -209,13 +209,11 @@ const actions = {
     })
       .catch(showError);
   },
-  loadChatMessages ({commit}, {AppId, Language}) {
-    api.loadChatMessages(AppId, Language)
-      .catch(showError);
+  loadChatMessages ({commit, state}, {AppId, Language}) {
+    state.Signalr.socketHub.invoke('JoinChat', AppId, Language);
   },
   sendChatMessage ({commit}, {AppId, Language, Message}) {
-    api.sendChatMessage(AppId, Language, Message)
-      .catch(showError);
+    state.Signalr.socketHub.invoke('NewChatMessage', AppId, Language, Message);
   },
   setupNotifications ({commit}) {
     const hubConnection = $.hubConnection(Settings.SocketUrl, {useDefaultPath: false});
